@@ -9,15 +9,15 @@ html {
 body { 
     font: 100% arial, sans-serif;
     line-height: 1.8em;
-    color: #555753; 
+    color: white; 
     margin-left: 10%; 
         margin-right: 10%;
         height: 100%;
     }
 
-
 h2 { 
     font: bold 2em arial;
+    color: white;
     text-align: center;
     letter-spacing: 0.1em; 
 }
@@ -25,8 +25,22 @@ h2 {
 p{
     font: 1em;
     text-align: center;
+    color: white;
     letter-spacing: 0.1em;
 }
+.text{
+    font: 1em;
+    padding-bottom: 15%;
+    text-align: center;
+    color: white;
+    letter-spacing: 0.1em;
+}
+
+div{
+    background-color: #777;
+}
 iframe{
-    align-content:center;
+    display:block;
+    border-style:none;
+    margin: 0 auto;
 }

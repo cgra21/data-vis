@@ -1,0 +1,21 @@
+html {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	}
+
+
+body { 
+    font: 100% georgia, sans-serif;
+    line-height: 1.8em;
+    color: #555753; 
+    margin-left: 10%; 
+        margin-right: 10%;
+        height: 100%;
+    }
+
+
+h2 { 
+    font: bold 2em papyrus, fantasy;
+    letter-spacing: 0.1em; 
+}

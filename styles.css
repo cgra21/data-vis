@@ -6,7 +6,7 @@ html {
 
 
 body { 
-    font: 100% georgia, sans-serif;
+    font: 100% arial, sans-serif;
     line-height: 1.8em;
     color: #555753; 
     margin-left: 10%; 
@@ -16,6 +16,7 @@ body {
 
 
 h2 { 
-    font: bold 2em papyrus, fantasy;
+    font: bold 2em arial;
+    text-align: center;
     letter-spacing: 0.1em; 
 }

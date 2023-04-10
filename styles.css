@@ -2,6 +2,7 @@ html {
 	margin: 0;
 	padding: 0;
 	height: 100%;
+    background-color: black;
 	}
 
 
@@ -19,4 +20,13 @@ h2 {
     font: bold 2em arial;
     text-align: center;
     letter-spacing: 0.1em; 
+}
+
+p{
+    font: 1em;
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+iframe{
+    align-content:center;
 }

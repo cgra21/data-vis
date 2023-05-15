@@ -1,41 +1,96 @@
 <html>
-    <head>
-		<link rel="stylesheet" type="text/css" href="styles.css">
-        <title>Test page</title>
-        <title>Data Interactivity</title>
-        <style>
-        	html {
-				margin: 0;
-				padding: 0;
-				height: 100%;
-			}
-			body { 
-				font: 100% georgia, sans-serif;
-				line-height: 1.8em;
-				color: #555753; 
-				height:100%
-			}
-		</style>
-    </head>
+<head>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<title>Data Interactivity</title>
+</head>
+<body>
+<div class="page-wrapper">
+	<section class = "intro">
+		<header role="banner">
+			<h1>Visualizing The News</h1>
+			<p>By Cole Granger</p>
+		</header>
 
-    <body>
-		<h2>Voting frequency vs Income and Education</h2>
-		<p><iframe src="categories.html" width="1000" height="800"></iframe></p>
-		<p class="text">There seems to be a positive relationship between income and education. As education increases, so does average income.<br>
-			There are very few college educated people who make less than $40k and there are very few High school or less educated people who make more than $125k. <br>
-			A majority of those making $125k or more are college educated, and a majority of those making $75k-125k have some college education or more. 
-			Whereas a majority of people making less than $40k are high school or less educated.</p>
-			<br>
+		<div class="preamble" id="zen-preamble" role="article">
+			<h3>Introduction</h3>
+			<p>News is everpresent, regardless of intention, so understanding the differences between news publications has become especially paramount. 
+				According to a 2022 <a href="https://news.gallup.com/poll/403166/americans-trust-media-remains-near-record-low.aspx#:~:text=Just%207%25%20of%20Americans%20have,in%20newspapers%2C%20TV%20and%20radio.">poll</a>
+			the American public's perception of media has hit all time lows. 28% of US adults do not have very much confidence and 38% have none at all.
+		Even more concering, according to a recent <a href="https://www.pewresearch.org/short-reads/2022/07/13/u-s-journalists-differ-from-the-public-in-their-views-of-bothsidesism-in-journalism/">Pew Research study</a> more than half of journalists surveyed (55%) 
+		said that every side does not always deserve equal coverage in the news.
+		</p> 
+		<p>
+			I wanted to create this project to better understand the difference, if any, there is between news publications. I wanted to understand what makes news sources different. Was it the way they structure their articles? Was it the vocabulary they use? Do they use language differently?
+		</p>
+		</div>
+		</section>
+	<div class="main supporting" id="zen-supporting" role="main">
+		<div class="explanation">
+			<h3>Purpose and Pipeline</h3>
+			<p>The purpose of this project is simple, create an interactive visualization so that people can better understand the differences between news publications. We must clear the mind of the past. 
+				Intially, I attempted to craft my own dataset of news articles by scraping sites such as <a href="https://www.cnn.com/">CNN</a> and <a href="https://www.foxnews.com/">Fox News</a>. 
+				This proved very difficult, as creating web scraping tools for each site individually just wasn't feasible for the time I had for this semester. Instead, I elected to use
+				another data set called <a href="https://components.one/datasets/all-the-news-2-news-articles-dataset">All The News 2.0</a>. It contains <b>2,688,878</b> news articles from <b>27</b> American publishers, spanning from January 1, 2016 to April 2, 2020, it was created by Andrew Thompson and is a total of 8.8 GB uncompressed.
+			</p>
+			<p>Intially, this dataset proved very unweidly to work with, as pandas, the most popular dataframe library for python, loads the whole dataset into memory when you call it, and makes copies of the dataset
+				when you need to perform actions on it. So, for the visualizations for this project, I downsampled by data so that there are 500 articles from each of the 27 publications. This portion of the project is focusing on <b>visualizations only</b> and not the overall analysis I did for this project. 
+			If you wish to read more about the work I have done for the analysis portion, you can read more at my <a href="https://github.com/cgra21/news-analysis">github</a>.		</p>
+		</div>
+		<div class = "design-selection">
+			<h3>The Data</h3>
+			<p class = "margin" >
+				While intially exploring the data, I generated a few graphs to help get a better grasp of what exactly we were looking at. The first graph 
+				is showing the total number of articles in the dataset for each publication.
+			</p>
+		</div>
+			<p style="text-align:center;"><img src = "articles_per_pub.png" style="border:5px solid black"></p>
+			<p class = "margin" style="text-align:center;">
+				This graph is showing the distributions of the length of the articles per publication. Outliers are not shown for clarity.
+			</p>
+			<p style="text-align:center;"><img class = "image" src = 'article_len_dist.png' style="border:5px solid black"></p>
+		<div class = "explanation">
+			<h5>Some Interesting Notes</h5>
+			<p>
+				A couple other interesting things to note about the data is that: for both <b>TMZ</b> and <b>The Economist</b> there are no authors listed. Reuters, despite having several 
+				hundred thousand more documnets listed in this data at around 830,000 articles, only has <b>27,178</b> unique authors and <b>574,489</b> NaN, while The New York Times, which has around 250,000 articles, has <b>30,653</b> unqiue authors and <b>20,476</b> NaN values. 
+				This could be due to how the data was scrapped, how authors are credited, or that many of the articles are simple very short and never had the author listed. 
+			</p>
+			<p>
+				A few other things to keep in mind: the point of this project was to analyze news specifically; however, this dataset includes publications that are very specific in nature, and most certainly skew the results. Given that this 
+				demonstration is for visualization only, I believe this is ok, but in the future I would like to remove these publications. A great example of this is TMZ. The inclusion of TMZ, while it only has 49,504 articles out of 2.7 million, it is arguably not even a 
+				news source in the traditional sense. This is also somewhat true of The Hill. It only covers one topic, that being politics, similar to how TMZ only really covers celebrity interactions. A few others to mention are: Refinery 29, Hyperallergic, and Tech Crunch.
+			</p>
+		</div>
+		<div class="requirements">
+			<h3>The Embedding Projector</h3>
+		</div>
+			<p>This projector is a gensim doc2vec model that was trained on a sample of 500 documents from each publication. Here you can visualize the different articles using different 
+				dimensionality reduction techniques. My personal favorite is UMAP, as it clusters the articles much better than PCA or tSNE. You can also view the points as different colors based on the 
+				publication they are from. If you click on a point, you will see its URL at the top right, and can read it from there. You can also see a list of the the top 10 closest articles (according to this model) on the right side, and compare the two if you wish.
+				It should be noted that this visualization is not as accurate as I would have liked, as it was trained on a small corpus of documents, however, this is just a demonstration of the visualization technique used. 
+			</p>
+			<p>
+				This was built using tensorflow's embedding <a href="https://www.tensorflow.org/tensorboard/tensorboard_projector_plugin"> projector</a>.
+			</p>
+		<iframe src="http://projector.tensorflow.org/?config=https://gist.githubusercontent.com/cgra21/8724531086105e3ff2911466b579ffad/raw/63bfee9a830058b48335e6f6187695355a5d9a51/projector_config.json" width="1800" height="1200"></iframe>
 
-		<h2>Voter Turnout Percetage vs Absentee Percentage Over Time</h2>
-		<p><iframe src="bubbles.html" width="750" height="650"></iframe></p>
-		<p class="text">2020 is widely different from other years, due to the lockdowns from COVID-19, the amount of absentee voters increased dramatically, and we can still see effects from that even in 2021 where the lockdowns were lessened.</p>
-		<br>
+		<div class="requirements">
+			<h3>Conclusion</h3>
+			<p>
+				This visualization shows just how different news sources can be. An interesting find, if you notice, buzzfeed articles tend to cluster extremely close togther. Another interesting find is that topic seems to be a bigger 
+				feature than authorship. It is worth further investigation to seperate those two features and see how much of a difference they make. Overall, there is some distinction between articles, however, this project doesn't decern exactly where they come from.
+				It could be topic, author or even formatting. While it's an interesting visualization, a much more deep dive is need to fully understand the differences between publications, as well as what makes the news.
+			</p>
+		</div>
 
-		<h2>Map of Virginia</h2>
-		<p><iframe src="map.html" width="800" height="800"></iframe></p>
-		<p class="text">Cities tend to have lower voter turnout.<br> Lynchburg only has 47%, Charlottesville has 51% and Richmond, the capital, only has 47%, 
-			these are all lower than their surrounding counties, which is an interesting trend. </p>
-			<br>
-    </body>
+		<footer>
+			<a href="https://github.com/cgra21/news-analysis" title = "Project GitHub" class = "zen-github">GitHub</a>
+			<a href="https://www.linkedin.com/in/cole-granger-44444499/:" title = "My LinkedIn" class = "zen-linkedin">LinkedIn</a>
+			<a href="https://www.csszengarden.com/218/" title = "CSS Used for this site" class = "zen-validate-css">CSS</a>
+		</footer>
+	</div>
+</div>
+<div class="extra1" role="presentation"></div><div class="extra2" role="presentation"></div><div class="extra3" role="presentation"></div>
+<div class="extra4" role="presentation"></div><div class="extra5" role="presentation"></div><div class="extra6" role="presentation"></div>
+</body>
 </html>
